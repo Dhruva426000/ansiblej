@@ -1,0 +1,17 @@
+---
+- name: Deploy To Tomcat
+  hosts: web
+  become: yes
+
+  tasks:
+
+    - name: Copy WAR file
+      copy:
+        src: "target/ansiblej.war"
+        dest: "/opt/tomcat/webapps/ansiblej.war"
+
+    - name: Restart Tomcat
+      shell: |
+        /opt/tomcat/bin/shutdown.sh
+        sleep 5
+        /opt/tomcat/bin/startup.sh
