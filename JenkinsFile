@@ -9,8 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Dhruva426000/ansiblej.git'
+                git branch: 'main', url: 'https://github.com/Dhruva426000/ansiblej.git'
             }
         }
 
@@ -24,6 +23,17 @@ pipeline {
             steps {
                 sh 'ansible-playbook playbook.yml -i hosts.ini'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment Successful!'
+            echo 'Application URL: http://localhost:9090/ansiblej'
+        }
+
+        failure {
+            echo 'Deployment Failed!'
         }
     }
 }
